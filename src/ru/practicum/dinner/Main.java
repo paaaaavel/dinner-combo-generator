@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class Main {
 
-    static DinnerConstructor dc;
-    static Scanner scanner;
+    private static DinnerConstructor dinnerConstructor;
+    private static Scanner scanner;
 
     public static void main(String[] args) {
-        dc = new DinnerConstructor();
+        dinnerConstructor = new DinnerConstructor();
         scanner = new Scanner(System.in);
 
         while (true) {
@@ -46,7 +46,7 @@ public class Main {
         System.out.println("Введите название блюда:");
         String dishName = scanner.nextLine();
 
-        dc.addDish(dishType, dishName);
+        dinnerConstructor.addDish(dishType, dishName);
 
         System.out.println("Текущий список блюд:");
         printAllDishesFormatted();
@@ -60,7 +60,7 @@ public class Main {
     }
 
     private static void printAllDishesFormatted() {
-        HashMap<String, ArrayList<String>> allDishes = dc.getDishes();
+        HashMap<String, ArrayList<String>> allDishes = dinnerConstructor.getDishes();
         for (String type : allDishes.keySet()) {
             System.out.println(capitalize(type) + ": " + allDishes.get(type));
         }
@@ -74,11 +74,11 @@ public class Main {
         int numberOfCombos = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). Для завершения ввода введите пустую строку");
+        System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). Для завершения ввода введите пустую строку:");
         String nextItem = scanner.nextLine();
 
         while (!nextItem.isEmpty()) {
-            if (!dc.isType(nextItem)) {
+            if (!dinnerConstructor.isType(nextItem)) {
                 System.out.println("Внимание: блюд типа \"" + nextItem + "\" нет в списке. Этот тип будет пропущен.");
             } else {
                 types.add(nextItem);
@@ -86,7 +86,7 @@ public class Main {
             nextItem = scanner.nextLine();
         }
 
-        ArrayList<ArrayList<String>> combos = dc.generateCombos(numberOfCombos, types);
+        ArrayList<ArrayList<String>> combos = dinnerConstructor.generateCombos(numberOfCombos, types);
         for (int i = 0; i < combos.size(); i++) {
             System.out.println("Комбо " + (i + 1));
             System.out.println(combos.get(i));
